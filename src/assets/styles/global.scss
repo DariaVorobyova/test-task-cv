@@ -1,0 +1,12 @@
+@import './normalize';
+@import './links';
+@import './text';
+
+body {
+    background: $primary;
+    font-family: "Merriweather", serif;
+}
+
+.container {
+    padding: 0 24px;
+}

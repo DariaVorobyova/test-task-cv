@@ -1,0 +1,12 @@
+a {
+  color: $secondary;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+
+  &:hover {
+    color: $secondary;
+    text-decoration: underline;
+  }
+}
