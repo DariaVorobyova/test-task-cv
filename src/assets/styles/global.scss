@@ -1,12 +1,17 @@
-@import './normalize';
-@import './links';
-@import './text';
+@import "./normalize";
+@import "./links";
+@import "./buttons";
+@import "./text";
 
 body {
-    background: $primary;
-    font-family: "Merriweather", serif;
+  background: $primary;
+  font-family: "Merriweather", serif;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 .container {
-    padding: 0 24px;
+  padding: 0 24px;
 }

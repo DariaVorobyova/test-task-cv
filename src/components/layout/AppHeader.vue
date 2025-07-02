@@ -8,7 +8,7 @@ function updateScroll() {
 }
 
 onMounted(() => {
-  updateScroll(); // установить стартовое значение
+  updateScroll(); 
   window.addEventListener("scroll", updateScroll);
 });
 
@@ -19,18 +19,19 @@ onUnmounted(() => {
 
 
 <template>
-  <header class="header" :class="{ active: scrollPosition }">
-    <div class="header__nav">
-      <a class="header__nav-link" href="#tech">My Tech Stack</a>
-      <a class="header__nav-link" href="#achievements">My Achievements</a>
+  <header class="site-header" :class="{ 'site-header--active': scrollPosition }">
+    <div class="site-header__nav">
+      <a class="site-header__nav-link" href="#tech">My Tech Stack</a>
+      <a class="site-header__nav-link" href="#achievements">My Achievements</a>
     </div>
   </header>
 </template>
 
 <style scoped lang="scss">
-.header {
+.site-header {
   position: fixed;
   top: 0;
+  display: flex;
   width: 100%;
   gap: 20px;
   padding-top: 20px;
@@ -42,11 +43,12 @@ onUnmounted(() => {
 
   @include center-items;
 
-  &.active {
+  &--active {
     background-color: #110f36;
   }
 
   &__nav {
+    display: flex;
     gap: 20px;
 
     @include center-items;

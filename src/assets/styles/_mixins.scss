@@ -8,13 +8,40 @@
   }
 }
 
+@mixin media($breakpoint) {
+  @if $breakpoint == xs {
+    @media (max-width: 479px) {
+      @content;
+    }
+  } @else if $breakpoint == sm {
+    @media (max-width: 767px) {
+      @content;
+    }
+  } @else if $breakpoint == md {
+    @media (max-width: 991px) {
+      @content;
+    }
+  } @else if $breakpoint == lg {
+    @media (max-width: 1199px) {
+      @content;
+    }
+  } @else if $breakpoint == xl {
+    @media (max-width: 1399px) {
+      @content;
+    }
+  } @else if $breakpoint == xxl {
+    @media (min-width: 1400px) {
+      @content;
+    }
+  }
+}
+
 @mixin text-shadow {
   color: white;
   text-shadow: 0 0 32px hsla(0, 0%, 100%, 0.5);
 }
 
 @mixin center-items {
-  display: flex;
   align-items: center;
   justify-content: center;
 }

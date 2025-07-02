@@ -1,6 +1,14 @@
 <script setup lang="ts">
+import { onMounted, nextTick } from "vue";
+
 import CometOrange from "@/components/ui/CometOrange.vue";
 import CometBlue from "@/components/ui/CometBlue.vue";
+
+import gsap from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
+import WaveText from "@/components/ui/WaveText.vue";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const technologies = [
   "Vue",
@@ -20,12 +28,37 @@ const technologies = [
   "Flex",
   "Grid",
 ];
+
+onMounted(async () => {
+  await nextTick();
+
+  gsap.utils.toArray<HTMLElement>(".tech-stack__item").forEach((el, i) => {
+    gsap.fromTo(
+      el,
+      { x: -100, opacity: 0 },
+      {
+        x: 0,
+        opacity: 1,
+        duration: 0.8,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: el,
+          start: "top 85%",
+          toggleActions: "play none none none",
+        },
+        delay: i * 0.05,
+      }
+    );
+  });
+});
 </script>
 
 <template>
   <div class="tech-stack">
     <div class="container">
-      <h2 class="tech-stack__title">My Tech Stack</h2>
+      <h2 class="tech-stack__title">
+        <WaveText text="My Tech Stack" />
+      </h2>
       <div class="tech-stack__list">
         <div
           v-for="(item, id) in technologies"
@@ -37,8 +70,8 @@ const technologies = [
           </p>
         </div>
       </div>
-      <CometOrange class="cometOrange" />
-      <CometBlue class="cometBlue" />
+      <CometOrange class="tech-stack__comet tech-stack__comet--orange" />
+      <CometBlue class="tech-stack__comet tech-stack__comet--blue" />
     </div>
   </div>
 </template>
@@ -46,18 +79,14 @@ const technologies = [
 <style lang="scss" scoped>
 .tech-stack {
   padding: 20px 0 320px;
+  position: relative;
 
   &__title {
-    font-size: 48px;
-    font-weight: 600;
     margin-bottom: 48px;
-
-    background-image: linear-gradient($secondary, #fff);
-    color: transparent;
-    background-clip: text;
   }
 
   &__list {
+    display: flex;
     flex-wrap: wrap;
     gap: 20px;
 
@@ -65,9 +94,11 @@ const technologies = [
   }
 
   &__item {
+    display: flex;
     width: calc(25% - 72px);
     min-height: 60px;
     padding: 16px;
+
     background-image: linear-gradient($secondary, $secondary),
       linear-gradient($secondary, $secondary),
       linear-gradient($secondary, $secondary),
@@ -91,25 +122,40 @@ const technologies = [
     background-repeat: no-repeat;
 
     @include center-items;
+
+    @include media(sm) {
+      width: 100%;
+    }
   }
 
   &__text {
     font-size: 30px;
     font-weight: 600;
-
     @include text-shadow;
   }
 
-  .cometBlue {
+  &__comet {
     position: absolute;
-    right: 0;
-    left: 0;
-    margin: auto;
-    animation: blue-planet 2s ease-in-out;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
+    z-index: 2;
+
+    &--blue {
+      right: 0;
+      left: 0;
+      margin: auto;
+      animation: tech-stack-blue-planet 2s ease-in-out infinite alternate;
+    }
+
+    &--orange {
+      right: 20px;
+      animation: tech-stack-orange-planet 2s ease-in-out infinite alternate;
+
+      @include media(sm) {
+        width: 150px;
+      }
+    }
   }
-  @keyframes blue-planet {
+
+  @keyframes tech-stack-blue-planet {
     from {
       transform: translate(-20%, 50px);
     }
@@ -118,20 +164,10 @@ const technologies = [
     }
   }
 
-  .cometOrange {
-    position: absolute;
-    right: 20px;
-    animation: orange-planet 2s 0ms ease-in-out;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
-    z-index: 2;
-  }
-
-  @keyframes orange-planet {
+  @keyframes tech-stack-orange-planet {
     from {
       transform: translate(0%, 0px);
     }
-
     to {
       transform: translate(-100px, 60px);
     }

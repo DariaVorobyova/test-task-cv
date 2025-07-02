@@ -1,0 +1,24 @@
+.btn {
+  display: flex;
+  position: relative;
+  height: max-content;
+  min-width: 160px;
+  padding: 16px;
+  font-size: 16px;
+  color: $white;
+  background-image: linear-gradient(-135deg, transparent 6px, $accent 0),
+    linear-gradient(45deg, transparent 6px, $accent 0);
+  background-size: 50% 100%, 50% 100%;
+  background-position: right 0 top 0, 0 0;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  box-sizing: border-box;
+
+  @include center-items;
+
+  &:hover {
+    color: $white;
+    text-decoration: none;
+    filter: drop-shadow(0 0 6px $accent);
+  }
+}

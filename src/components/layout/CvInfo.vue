@@ -2,6 +2,7 @@
 import MainBanner from "@/components/info/MainBanner.vue";
 import TechStack from "@/components/info/TechStack.vue";
 import MyAchievements from "@/components/info/MyAchievements.vue";
+import GridArea from "@/components/info/GridArea.vue";
 </script>
 
 <template>
@@ -9,6 +10,7 @@ import MyAchievements from "@/components/info/MyAchievements.vue";
     <MainBanner />
     <TechStack id="tech" />
     <MyAchievements id="achievements" />
+    <GridArea />
   </div>
 </template>
 
