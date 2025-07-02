@@ -1,14 +1,9 @@
 <script setup lang="ts">
-import { onMounted, nextTick } from "vue";
-
 import CometOrange from "@/components/ui/CometOrange.vue";
 import CometBlue from "@/components/ui/CometBlue.vue";
 
-import gsap from "gsap";
-import ScrollTrigger from "gsap/ScrollTrigger";
 import WaveText from "@/components/ui/WaveText.vue";
-
-gsap.registerPlugin(ScrollTrigger);
+import TextAppear from "@/components/ui/TextAppear.vue";
 
 const technologies = [
   "Vue",
@@ -28,29 +23,6 @@ const technologies = [
   "Flex",
   "Grid",
 ];
-
-onMounted(async () => {
-  await nextTick();
-
-  gsap.utils.toArray<HTMLElement>(".tech-stack__item").forEach((el, i) => {
-    gsap.fromTo(
-      el,
-      { x: -100, opacity: 0 },
-      {
-        x: 0,
-        opacity: 1,
-        duration: 0.8,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: el,
-          start: "top 85%",
-          toggleActions: "play none none none",
-        },
-        delay: i * 0.05,
-      }
-    );
-  });
-});
 </script>
 
 <template>
@@ -60,15 +32,16 @@ onMounted(async () => {
         <WaveText text="My Tech Stack" />
       </h2>
       <div class="tech-stack__list">
-        <div
+        <TextAppear
           v-for="(item, id) in technologies"
           :key="id"
+          direction="x"
+          :distance="-100"
+          :delay="id * 0.05"
           class="tech-stack__item"
         >
-          <p class="tech-stack__text">
-            {{ item }}
-          </p>
-        </div>
+          <p class="tech-stack__text">{{ item }}</p>
+        </TextAppear>
       </div>
       <CometOrange class="tech-stack__comet tech-stack__comet--orange" />
       <CometBlue class="tech-stack__comet tech-stack__comet--blue" />
@@ -83,6 +56,7 @@ onMounted(async () => {
 
   &__title {
     margin-bottom: 48px;
+    @include text-shadow;
   }
 
   &__list {
@@ -131,7 +105,8 @@ onMounted(async () => {
   &__text {
     font-size: 30px;
     font-weight: 600;
-    @include text-shadow;
+    color: transparent;
+    -webkit-text-stroke: 1px white;
   }
 
   &__comet {

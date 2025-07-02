@@ -1,10 +1,6 @@
 <script setup lang="ts">
-import { onMounted, nextTick } from "vue";
-import gsap from "gsap";
-import ScrollTrigger from "gsap/ScrollTrigger";
 import WaveText from "@/components/ui/WaveText.vue";
-
-gsap.registerPlugin(ScrollTrigger);
+import TextAppear from "@/components/ui/TextAppear.vue";
 
 const achievements = [
   `Advabet: August 2020 - September 2022 <br/> Mind Studios: September 2022 - July 2025`,
@@ -19,29 +15,6 @@ const achievements = [
   "Following best practices in component design, state management, and performance optimization",
   "Prioritize accessibility and responsiveness in every UI I create",
 ];
-
-onMounted(async () => {
-  await nextTick();
-
-  gsap.utils.toArray<HTMLElement>(".my-achievements__item").forEach((el, i) => {
-    gsap.fromTo(
-      el,
-      { x: 100, opacity: 0 },
-      {
-        x: 0,
-        opacity: 1,
-        duration: 0.8,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: el,
-          start: "top 85%",
-          toggleActions: "play none none none",
-        },
-        delay: i * 0.05,
-      }
-    );
-  });
-});
 </script>
 
 <template>
@@ -51,13 +24,16 @@ onMounted(async () => {
         <WaveText text="My Achievements" />
       </h2>
       <div class="my-achievements__list">
-        <div
+        <TextAppear
           v-for="(item, id) in achievements"
           :key="id"
+          direction="x"
+          :distance="100"
+          :delay="id * 0.05"
           class="my-achievements__item"
         >
           <p class="my-achievements__text" v-html="item"></p>
-        </div>
+        </TextAppear>
       </div>
     </div>
   </div>
@@ -68,12 +44,8 @@ onMounted(async () => {
   padding-bottom: 60px;
 
   &__title {
-    font-size: 48px;
-    font-weight: 600;
     margin-bottom: 48px;
-    background-image: linear-gradient(#aa85f4, #fff);
-    color: transparent;
-    background-clip: text;
+    @include text-shadow;;
   }
 
   &__list {

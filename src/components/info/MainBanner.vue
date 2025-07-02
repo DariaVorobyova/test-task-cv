@@ -2,11 +2,12 @@
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
+import BouncingText from "@/components/ui/BouncingText.vue";
 
 const texts = [
-  "Daria Vorobiova. Frontend Developer with 4+ years of experience in developing web applications across various sectors using Vue.js and Nuxt.js. Transforming design mockups into responsive, high-performance user interfaces. Passionate about creating innovative web experiences. Eager for new challenges and ready to develop my skills along with the company.",
-  "Daria Vorobiova. Frontend Developer with 4+ years of experience in developing web applications across various sectors using Vue.js and Nuxt.js. Transforming design mockups into responsive, high-performance user interfaces. Passionate about creating innovative web experiences. Eager for new challenges and ready to develop my skills along with the company.",
-  "Daria Vorobiova. Frontend Developer with 4+ years of experience in developing web applications across various sectors using Vue.js and Nuxt.js. Transforming design mockups into responsive, high-performance user interfaces. Passionate about creating innovative web experiences. Eager for new challenges and ready to develop my skills along with the company.",
+  "Frontend Developer with 4+ years of experience in developing web applications across various sectors using Vue.js and Nuxt.js. Transforming design mockups into responsive, high-performance user interfaces. Passionate about creating innovative web experiences. Eager for new challenges and ready to develop my skills along with the company.",
+  "Frontend Developer with 4+ years of experience in developing web applications across various sectors using Vue.js and Nuxt.js. Transforming design mockups into responsive, high-performance user interfaces. Passionate about creating innovative web experiences. Eager for new challenges and ready to develop my skills along with the company.",
+  "Frontend Developer with 4+ years of experience in developing web applications across various sectors using Vue.js and Nuxt.js. Transforming design mockups into responsive, high-performance user interfaces. Passionate about creating innovative web experiences. Eager for new challenges and ready to develop my skills along with the company.",
 ];
 
 import banner1 from "@/assets/images/banners/banner-1.png";
@@ -56,7 +57,8 @@ const banners = [
                     alt="Daria Avatar"
                     class="main-banner__inline-image"
                   />
-                  <p>{{ texts[index] }}</p>
+                  <BouncingText text="Daria Vorobiova" />
+                  <p v-html="texts[index]"></p>
                 </div>
                 <a
                   class="main-banner__btn btn"
@@ -126,6 +128,14 @@ const banners = [
     @include center-items;
     @include text-shadow;
 
+    .stroke {
+  color: transparent;
+  -webkit-text-stroke: 2px white;
+  text-shadow:
+    0 0 1px white;
+  font-weight: 800;
+}
+
     @include media(sm) {
       width: 100%;
       padding: 0;
@@ -139,6 +149,7 @@ const banners = [
     p {
       margin: 0 0 40px;
       font-size: 20px;
+      font-weight: 400;
     }
   }
 
